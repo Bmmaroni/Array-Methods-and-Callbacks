@@ -39,9 +39,9 @@ console.log(getFinals(fifaData))
 
 function getYears(callback) {
 
-    const finalYears = fifaData.map(callback(fifaData) item) {
-        return item.Year();
-    }
+    const finalYears = callback(fifaData).map(year => {return year.Year});
+    
+    return finalYears
     
 };
 
