@@ -33,7 +33,7 @@ function getFinals(data) {
 
 };
 
-console.log(getFinals(fifaData))
+getFinals(fifaData)
 
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 
@@ -45,17 +45,28 @@ function getYears(callback) {
     
 };
 
-console.log(getYears(getFinals));
+getYears(getFinals);
 
 /* Task 5: Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
+function getWinners(callback) {
 
-    /* code here */
-
+    const game = callback(fifaData);
+    
+    const winners = [];
+    
+    game.map(game => {
+        if (game['Home Team Score'] > game['Away Team Score']){
+            winners.push(game['Home Team Name'])
+        }else{
+            winners.push(game['Away Team Name'])
+            }
+        }
+    )
+    return winners
 };
 
-getWinners();
+getWinners(getFinals);
 
 /* Task 6: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
@@ -64,20 +75,29 @@ Parameters:
  * callback function getYears
  */
 
-function getWinnersByYear(/* code here */) {
+function getWinnersByYear(cb1, cb2) {
+
+    let country = cb1(getFinals(fifaData));
+    let year = cb2(getFinals(fifaData));
+    winnersByYear = [];
+
+    for (let i = 0; i < country.length; i++){
+       winnersByYear.push( `In ${year[i]}, ${country[i]} won the world cup!`);
+    }
+    return winnersByYear;
 
 };
 
-getWinnersByYear();
+console.log(getWinnersByYear(getWinners(getFinals), getYears(getFinals)));
 
 /* Task 7: Create a function called `getCountryWins` that takes the parameters `data` and `team initials` and returns the number of world cup wins that country has had. 
 
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
-function getCountryWins(/* code here */) {
+function getCountryWins(data, initials) {
 
-    /* code here */
+    
 
 };
 
