@@ -96,15 +96,25 @@ Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
 function getCountryWins(data, initials) {
-
-    const worldCups = data.filter((game) => {
-        return  game.Stage == 'Final' && (initials == game['Home Team Initials'] || initials == game['Away Team Initials'])
+    initials = initials.toUpperCase();
+    let count = 0;
+    const worldCups = data.map((game) => {
+        if (game['Home Team Goals']>game['Away Team Goals']) {
+            return game["Home Team Initials"]
+        } else {
+            return game["Away Team Initials"]
+        }
     })
-    
-    const worldCupWins = worldCups.reduce(())
+
+    worldCups.forEach(worldCup => {
+        if (worldCup === initials){
+            count++; 
+        } 
+    })
+    return count;
 };
 
-console.log(getCountryWins(fifaData, 'ARG'));
+console.log(getCountryWins(getFinals(fifaData), 'ARG'));
 
 /* Task 8: Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
